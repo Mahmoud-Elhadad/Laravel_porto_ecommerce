@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class PortoController extends Controller
 {
     public function index(){
-        $products = Product::with("cat" , "image")->paginate(3);
+        $products = Product::with("cat" , "image")->paginate(5);
         return view("ecomm.porto.pages.index" , compact("products"));
 
 

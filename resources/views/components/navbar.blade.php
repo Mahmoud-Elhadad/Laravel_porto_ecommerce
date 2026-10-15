@@ -72,10 +72,11 @@
                                     <li>User : <span class="text-uppercase text-dark">{{ @Auth::guard('web')->user()->name }}</span> </li>
                                     <li><a href="{{ route("porto.about") }}">About Us</a></li>
                                     <li><a href="{{ route("porto.blog") }}">Blog</a></li>
-                                    <li><a href="{{ route("porto.wishlistPage") }}">My Wishlist</a></li>
                                     @if (Auth::guard("web")->check())
-                                     <li><a href="{{ route("porto.cartPage") }}">Cart</a></li>
-                                     @else
+                                    <li><a href="{{ route("porto.wishlistPage") }}">My Wishlist</a></li>
+                                    <li><a href="{{ route("porto.cartPage") }}">Cart</a></li>
+                                    @else
+                                    <li><a href="{{ route("porto.login") }}">My Wishlist</a></li>
                                      <li><a href="{{ route("porto.login") }}">Cart</a></li>
                                     @endif
                                     @if (Auth::guard("web")->check())
@@ -192,14 +193,19 @@
 
                        @if (!Auth::guard("web")->check())
                         <a href="{{ route("porto.register") }}" class="header-icon" title="login"><i class="icon-user-2"></i></a>
-                       @endif
+                        <a href="{{ route("porto.login") }}" class="header-icon" title="wishlist">
+                            <i class="icon-wishlist-2"></i>
+
+                        </a>
+                       @else
 
 
                             <a href="{{ route("porto.wishlistPage") }}" class="header-icon" title="wishlist">
                                 <i class="icon-wishlist-2"></i>
 
                             </a>
-                       
+
+                            @endif
 
 
                         <div class="dropdown cart-dropdown show_cart">

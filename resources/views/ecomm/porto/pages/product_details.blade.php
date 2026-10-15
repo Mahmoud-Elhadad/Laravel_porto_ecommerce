@@ -105,7 +105,7 @@
 
                             <div class="price-box">
                                 <span class="old-price">${{ $product->price }}</span>
-                                <span class="new-price">${{ $product->price - ($product->price * ($product->sale / 100)) }}0</span>
+                                <span class="new-price">${{ $product->price - ($product->price * $product->sale / 100)}}</span>
                             </div>
                             <!-- End .price-box -->
 
@@ -128,19 +128,7 @@
                             </ul>
 
                             <div class="product-filters-container">
-                                <div class="product-single-filter"><label class="font2">Color:</label>
-                                    <ul class="config-size-list config-color-list config-filter-list">
-                                        <li class="">
-                                            <a href="javascript:;" class="filter-color border-0" style="background-color: rgb(1, 136, 204);"></a>
-                                        </li>
-                                        <li class="">
-                                            <a href="javascript:;" class="filter-color border-0 initial disabled" style="background-color: rgb(221, 181, 119);"></a>
-                                        </li>
-                                        <li class="">
-                                            <a href="javascript:;" class="filter-color border-0" style="background-color: rgb(96, 133, 165);"></a>
-                                        </li>
-                                    </ul>
-                                </div>
+
 
                                 <div class="product-single-filter">
                                     <label class="font2">Size:</label>
@@ -169,7 +157,15 @@
 
 
 
+                                @if(Auth::guard("web")->check())
+
                                 <a href="{{ route("porto.cartPage") }}" class="btn btn-gray view-cart d-block">View cart</a>
+
+                                @else
+                                <a href="{{ route("porto.login") }}" class="btn btn-gray view-cart d-block">View cart</a>
+
+
+                                @endif
                             </div>
                             <!-- End .product-action -->
 
