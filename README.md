@@ -1,90 +1,105 @@
-# Porto E-Commerce Platform
+# Laravel E-Commerce Platform
 
-A full-featured e-commerce web application built with Laravel 12, designed to demonstrate modern backend development practices and real-world e-commerce functionality.
+A full-featured e-commerce web application built with **Laravel 12** and **PHP 8.2**, featuring a complete storefront and a separate admin dashboard for backend management.
 
-## Project Overview
+---
 
-Porto is a comprehensive e-commerce platform that enables users to browse products, manage shopping carts, create wishlists, and complete purchases. The application features a robust admin dashboard for product and category management, user authentication, and order processing. Built with Laravel 12, it leverages the latest PHP features, Eloquent ORM, and modern frontend tooling including TailwindCSS and Vite.
+## Features
 
-## Key Features
+### Storefront
+- Product catalog with pagination and category filtering
+- Product detail pages with related products (same category)
+- Shopping cart — add, remove, and update quantity via AJAX with real-time total calculation
+- Wishlist — toggle add/remove via AJAX
+- User registration & login
+- Contact form with message submission
 
-### User Features
-- **Authentication System**: Secure user registration and login with session management
-- **Product Browsing**: Browse products by category with filtering and search capabilities
-- **Shopping Cart**: Add/remove products, update quantities, and manage cart in real-time
-- **Wishlist**: Save favorite products for later purchase
-- **User Profile**: Manage personal information and view order history
+### Admin Dashboard (`/dashboard`)
+- Secure admin authentication with dedicated guard
+- Product management — full CRUD with multi-image upload
+- Category management — create, list, delete
+- Admin account management — full CRUD with profile image upload
+- Contact message inbox — view, mark as read/unread, delete
 
-### Admin Features
-- **Admin Dashboard**: Comprehensive dashboard for managing the entire platform
-- **Product Management**: Full CRUD operations for products with image uploads
-- **Category Management**: Organize products into hierarchical categories
-- **User Management**: View and manage registered users
-- **Message System**: Handle customer inquiries and support requests
-
-### Technical Features
-- **RESTful Architecture**: Clean API endpoints following Laravel best practices
-- **Form Validation**: Server-side validation using Laravel Form Requests
-- **Database Relationships**: Complex Eloquent relationships (one-to-many, many-to-many)
-- **AJAX Interactions**: Dynamic UI updates without page reloads
-- **Image Handling**: Product image uploads with storage management
-- **Middleware**: Custom middleware for authentication and authorization
-- **Testing**: Pest PHP testing framework for unit and feature tests
+---
 
 ## Tech Stack
 
-- **Backend**: PHP 8.2, Laravel 12
-- **Database**: MySQL with Eloquent ORM
-- **Frontend**: TailwindCSS 4, Vite 7, Blade Templates
-- **HTTP Client**: Axios
-- **Testing**: Pest PHP 3
-- **Code Quality**: Laravel Pint
-- **Development Tools**: Laravel Sail, Laravel Tinker
+| Layer | Technology |
+|---|---|
+| Backend | Laravel 12, PHP 8.2 |
+| Database | MySQL + Eloquent ORM |
+| Frontend | Blade Templating, Vite |
+| Auth | Laravel Guards (dual: customer & admin) |
+| Testing | Pest v3, PHPUnit v11 |
 
-## Installation
+---
+
+## Getting Started
+
+### Requirements
+- PHP 8.2+
+- Composer
+- Node.js & npm
+- MySQL
+
+### Installation
 
 ```bash
 # Clone the repository
-git clone YOUR_REPOSITORY_URL
+git clone <repository-url>
 cd Laravel_porto_project
 
-# Install dependencies
+# Install PHP dependencies
 composer install
+
+# Install JS dependencies
 npm install
 
-# Environment setup
+# Copy environment file and configure your database
 cp .env.example .env
 php artisan key:generate
 
-# Database setup
+# Run migrations
 php artisan migrate
-php artisan storage:link
 
-# Start development server
-php artisan serve
+# Build assets
+npm run build
 ```
 
-Or use the automated setup script:
-
-```bash
-composer run setup
-```
-
-For development with hot-reload:
+### Running the App
 
 ```bash
 composer run dev
 ```
 
-## Running Tests
+---
 
-```bash
-# Run all tests
-php artisan test
+## Project Structure
 
-# Run specific test file
-php artisan test tests/Feature/ExampleTest.php
-
-# Run filtered tests
-php artisan test --filter=testName
 ```
+app/
+├── Http/
+│   ├── Controllers/       # All controllers
+│   ├── Middleware/        # AuthAdmin, ExistAdmin
+│   └── Requests/          # Form Request validation classes
+├── Models/                # Eloquent models
+└── View/Components/       # Blade components
+
+resources/views/
+├── ecomm/porto/           # Storefront views
+└── dashboard/             # Admin panel views
+
+routes/
+├── web.php                # Customer-facing routes
+└── admin.php              # Admin dashboard routes (mounted at /dashboard)
+```
+
+---
+
+## Authentication
+
+The app uses **two separate guards**:
+
+- `web` — for customers (standard Laravel auth)
+- `dashboard` — for admins (`Admin` model), protected by `AuthAdmin` middleware
