@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AntomiController;
 use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\PortoCartController;
 use App\Http\Controllers\PortoController;
@@ -34,14 +33,4 @@ Route::post("remove_from_cart" , [PortoCartController::class , "remove_from_cart
 Route::post("update_count" , [PortoCartController::class , "update_count"])->name("porto.updateCount.cart");
 
 Route::post("wishlst" , [PortoWishlistController::class , "add_to_wishlist"])->name("porto.add.wishlist");
-// -----------------------------------------------------------------------------------
 
-
-
-Route::prefix("antomi")->group(function(){
-
-
-    Route::get("index" , [AntomiController::class , "index"])->name("antomi.index");
-    Route::get("antomi_product_details/{id}" , [AntomiController::class , "product_details"])->name("antomi.product.details");
-
-});
